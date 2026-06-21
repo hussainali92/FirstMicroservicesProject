@@ -2,7 +2,6 @@ package com.in28minutes.microservices.currency_exchange_services;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import org.springframework.context.annotation.EnableLoadTimeWeaving;
 
 import java.math.BigDecimal;
 @Entity

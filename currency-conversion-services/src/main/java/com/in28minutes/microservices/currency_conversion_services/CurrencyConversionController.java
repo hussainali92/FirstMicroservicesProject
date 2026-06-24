@@ -27,6 +27,6 @@ public class CurrencyConversionController {
                 quantity.multiply(currencyConversion.getConversionMultiple()),currencyConversion.getEnvironment());
     }
     public CurrencyConversion currencyconversionfeignfallback(String from ,String to , BigDecimal quantity ,Exception ex){ // when callingback fails , call this function
-        return new CurrencyConversion(10001L,from,to,quantity,BigDecimal.ONE,quantity,"fallback-Response");
+        return new CurrencyConversion(10001,from,to,quantity,BigDecimal.ONE,quantity,"fallback-Response");
     }
 }

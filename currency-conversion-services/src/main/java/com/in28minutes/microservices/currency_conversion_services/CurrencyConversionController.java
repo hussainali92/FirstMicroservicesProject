@@ -19,14 +19,14 @@ public class CurrencyConversionController {
          return currencyConversion;
     }
     @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
-    @Retry(name = "currency-exchange" , fallbackMethod = "currencyconversionfeignfallback")
+    @Retry(name = "currency-exchange" , fallbackMethod = "currencyConversionFeignFallback")
     public CurrencyConversion currencyConversionFeign(@PathVariable String from , @PathVariable String to , @PathVariable BigDecimal quantity){
         CurrencyConversion currencyConversion = proxy.GetParamsFromCurrencyExchange(from , to);
 
         return new CurrencyConversion(currencyConversion.getId(), from , to ,quantity , currencyConversion.getConversionMultiple(),
                 quantity.multiply(currencyConversion.getConversionMultiple()),currencyConversion.getEnvironment());
     }
-    public CurrencyConversion currencyconversionfeignfallback(String from ,String to , BigDecimal quantity ,Exception ex){ // when callingback fails , call this function
+    public CurrencyConversion currencyConversionFeignFallback(String from ,String to , BigDecimal quantity ,Throwable ex){ // when callingback fails , call this function
         return new CurrencyConversion(10001,from,to,quantity,BigDecimal.ONE,quantity,"fallback-Response");
     }
 }

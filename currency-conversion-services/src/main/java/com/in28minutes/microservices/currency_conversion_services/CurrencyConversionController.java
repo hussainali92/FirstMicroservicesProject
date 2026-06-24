@@ -1,6 +1,7 @@
 package com.in28minutes.microservices.currency_conversion_services;
 
 import com.in28minutes.microservices.currency_conversion_services.Proxy.CurrencyExchangeProxy;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,8 @@ public class CurrencyConversionController {
          return currencyConversion;
     }
     @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
-    @Retry(name = "currency-exchange" , fallbackMethod = "currencyConversionFeignFallback")
+    //@Retry(name = "currency-exchange" , fallbackMethod = "currencyConversionFeignFallback")
+    @CircuitBreaker(name = "currency-exchange" , fallbackMethod = "currencyConversionFeignFallback")
     public CurrencyConversion currencyConversionFeign(@PathVariable String from , @PathVariable String to , @PathVariable BigDecimal quantity){
         CurrencyConversion currencyConversion = proxy.GetParamsFromCurrencyExchange(from , to);
 

@@ -79,7 +79,7 @@ services:
     image: currency-conversion-services:0.0.1-SNAPSHOT
     container_name: currency-conversion-services
     ports:
-      - "8100:8100"
+      - "8110:8100"
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://spring-cloud-config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka

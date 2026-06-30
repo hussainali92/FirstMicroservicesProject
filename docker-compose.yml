@@ -53,12 +53,9 @@ services:
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       EUREKA_INSTANCE_INSTANCE_ID: currency-exchange-services-8000
       JAVA_TOOL_OPTIONS: "-Deureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka"
-      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
     depends_on:
       - spring-cloud-config-server
       - naming-server
-      - zipkin
 
   currency-exchange-services-8001:
       image: currency-exchange-services:0.0.1-SNAPSHOT
@@ -74,12 +71,9 @@ services:
         EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
         EUREKA_INSTANCE_INSTANCE_ID: currency-exchange-services-8001
         JAVA_TOOL_OPTIONS: "-Deureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka"
-        MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
-        MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       depends_on:
         - spring-cloud-config-server
         - naming-server
-        - zipkin
 
   currency-conversion-services:
     image: currency-conversion-services:0.0.1-SNAPSHOT
@@ -95,14 +89,11 @@ services:
 
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
       JAVA_TOOL_OPTIONS: "-Deureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka"
-      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
     depends_on:
       - spring-cloud-config-server
       - naming-server
       - currency-exchange-services-8000
       - currency-exchange-services-8001
-      - zipkin
 
   api-gateway:
     image: api-gateway:0.0.1-SNAPSHOT

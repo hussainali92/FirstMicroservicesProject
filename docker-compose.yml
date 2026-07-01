@@ -109,6 +109,8 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka
       JAVA_TOOL_OPTIONS: "-Deureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "1.0"
+      MANAGEMENT_TRACING_EXPORT_ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
     depends_on:
       - naming-server
       - currency-conversion-services

@@ -81,5 +81,40 @@ pipeline {
                 }
             }
         }
+        stage('Build Naming Server') {
+            steps {
+                dir('naming-server') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Naming Server Image') {
+            steps {
+                dir('naming-server') {
+                    sh 'mvn spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=imadmin1992/naming-server:latest'
+                }
+            }
+        }
+
+        stage('Push Naming Server Image') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        echo "$DOCKER_TOKEN" | docker login \
+                        --username "$DOCKER_USERNAME" \
+                        --password-stdin
+
+                        docker push imadmin1992/naming-server:latest
+                    '''
+                }
+            }
+        }
     }
 }

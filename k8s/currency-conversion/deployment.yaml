@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  
+  labels:
+    app: currency-conversion
+  name: currency-conversion
+ 
+spec:
+ 
+  replicas: 1
+  
+  selector:
+    matchLabels:
+      app: currency-conversion
+  template:
+    metadata:
+      labels:
+        app: currency-conversion
+    spec:
+      containers:
+      - name: currency-conversion
+      - image: imadmin1992/currency-conversion:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8100
+               
+

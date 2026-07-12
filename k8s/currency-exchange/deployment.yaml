@@ -22,7 +22,7 @@ spec:
              - containerPort: 8000
            env:
              - name: JAVA_TOOL_OPTIONS
-               value: "-Deureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka"
+               value: "-Deureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka -Deureka.instance.preferIpAddress=true"
 
              - name: SPRING_CONFIG_IMPORT
                value: "optional:configserver:http://config-server:8888"

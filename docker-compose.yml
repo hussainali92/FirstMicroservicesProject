@@ -1,13 +1,13 @@
 services:
 
   naming-server:
-    image: naming-server:0.0.1-SNAPSHOT
+    image: imadmin1992/naming-server:latest
     container_name: naming-server
     ports:
       - "8761:8761"
 
   spring-cloud-config-server:
-    image: spring-cloud-config-server:0.0.1-SNAPSHOT
+    image: imadmin1992/spring-cloud-config-server:latest
     container_name: spring-cloud-config-server
     ports:
       - "8888:8888"
@@ -21,26 +21,26 @@ services:
     depends_on:
       - naming-server
 
-  limits-services:
-    image: limits-services:0.0.1-SNAPSHOT
-    container_name: limits-services
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_CONFIG_IMPORT: optional:configserver:http://spring-cloud-config-server:8888
-      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://naming-server:8761/eureka
-      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
-
-      EUREKA_CLIENT_FETCH_REGISTRY: "true"
-
-      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
-      JAVA_TOOL_OPTIONS: "-Deureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka"
-    depends_on:
-      - spring-cloud-config-server
-      - naming-server
+#  limits-services:
+#    image: limits-services:0.0.1-SNAPSHOT
+#    container_name: limits-services
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_CONFIG_IMPORT: optional:configserver:http://spring-cloud-config-server:8888
+#      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://naming-server:8761/eureka
+#      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+#
+#      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+#
+#      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+#      JAVA_TOOL_OPTIONS: "-Deureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka"
+#    depends_on:
+#      - spring-cloud-config-server
+#      - naming-server
 
   currency-exchange-services-8000:
-    image: currency-exchange-services:0.0.1-SNAPSHOT
+    image: imadmin1992/currency-exchange-services:latest
     container_name: currency-exchange-services-8000
     ports:
       - "8000:8000"
@@ -60,7 +60,7 @@ services:
       - naming-server
 
   currency-exchange-services-8001:
-      image: currency-exchange-services:0.0.1-SNAPSHOT
+      image: imadmin1992/currency-exchange-services:latest
       container_name: currency-exchange-services-8001
       ports:
         - "8001:8001"
@@ -80,7 +80,7 @@ services:
         - naming-server
 
   currency-conversion-services:
-    image: currency-conversion-services:0.0.1-SNAPSHOT
+    image: imadmin1992/currency-conversion-services:latest
     container_name: currency-conversion-services
     ports:
       - "8110:8100"
@@ -102,7 +102,7 @@ services:
       - currency-exchange-services-8001
 
   api-gateway:
-    image: api-gateway:0.0.1-SNAPSHOT
+    image: imadmin1992/api-gateway:latest
     container_name: api-gateway
     ports:
       - "8765:8765"

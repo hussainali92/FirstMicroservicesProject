@@ -6,9 +6,9 @@ metadata:
   name: currency-exchange
 spec:
   ports:
-    port: 8000
-    protocol: TCP
-    targetPort: 8000
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
   selector:
     app: currency-exchange
   type: LoadBalancer

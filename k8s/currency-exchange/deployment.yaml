@@ -15,8 +15,8 @@ spec:
         app: currency-exchange
     spec:
       containers:
-      - image: imadmin1992/currency-exchange:latest
-        name: currency-exchange
-        imagePullPolicy: Always
-        ports:
-          - containerPort: 8000
+         - name: currency-exchange
+           image: imadmin1992/currency-exchange:latest
+           imagePullPolicy: Always
+           ports:
+             - containerPort: 8000

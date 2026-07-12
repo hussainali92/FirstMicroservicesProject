@@ -46,5 +46,40 @@ pipeline {
                 }
             }
         }
+        stage('Build Currency Conversion') {
+            steps {
+                dir('currency-conversion-services') {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Currency Conversion Image') {
+            steps {
+                dir('currency-conversion-services') {
+                    sh 'mvn spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=imadmin1992/currency-conversion:latest'
+                }
+            }
+        }
+
+        stage('Push Currency Conversion Image') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        echo "$DOCKER_TOKEN" | docker login \
+                        --username "$DOCKER_USERNAME" \
+                        --password-stdin
+
+                        docker push imadmin1992/currency-conversion:latest
+                    '''
+                }
+            }
+        }
     }
 }

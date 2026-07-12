@@ -23,7 +23,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('currency-exchange-services') {
-                    sh 'mvn spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=hussain0792/currency-exchange:latest'
+                    sh 'mvn spring-boot:build-image -DskipTests -Dspring-boot.build-image.imageName=imadmin1992/currency-exchange:latest'
                 }
             }
         }
@@ -41,7 +41,7 @@ pipeline {
                         --username "$DOCKER_USERNAME" \
                         --password-stdin
 
-                        docker push hussain0792/currency-exchange:latest
+                        docker push imadmin1992/currency-exchange:latest
                     '''
                 }
             }

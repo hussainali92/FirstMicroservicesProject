@@ -7,7 +7,7 @@ services:
       - "8761:8761"
 
   spring-cloud-config-server:
-    image: imadmin1992/spring-cloud-config-server:latest
+    image: imadmin1992/config-server:latest
     container_name: spring-cloud-config-server
     ports:
       - "8888:8888"
@@ -40,7 +40,7 @@ services:
 #      - naming-server
 
   currency-exchange-services-8000:
-    image: imadmin1992/currency-exchange-services:latest
+    image: imadmin1992/currency-exchange:latest
     container_name: currency-exchange-services-8000
     ports:
       - "8000:8000"
@@ -60,7 +60,7 @@ services:
       - naming-server
 
   currency-exchange-services-8001:
-      image: imadmin1992/currency-exchange-services:latest
+      image: imadmin1992/currency-exchange:latest
       container_name: currency-exchange-services-8001
       ports:
         - "8001:8001"
@@ -80,7 +80,7 @@ services:
         - naming-server
 
   currency-conversion-services:
-    image: imadmin1992/currency-conversion-services:latest
+    image: imadmin1992/currency-conversion:latest
     container_name: currency-conversion-services
     ports:
       - "8110:8100"
@@ -116,7 +116,7 @@ services:
       - currency-conversion-services
       - currency-exchange-services-8000
       - currency-exchange-services-8001
-      - limits-services
+#      - limits-services
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin

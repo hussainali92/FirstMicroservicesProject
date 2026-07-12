@@ -19,10 +19,10 @@ spec:
         app: currency-conversion
     spec:
       containers:
-      - name: currency-conversion
-      - image: imadmin1992/currency-conversion:latest
-        imagePullPolicy: Always
-        ports:
-          - containerPort: 8100
+        - name: currency-conversion
+          image: imadmin1992/currency-conversion:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8100
                
 

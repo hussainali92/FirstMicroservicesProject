@@ -24,5 +24,11 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8100
+          env:
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://naming-server:8761/eureka
+
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:configserver:http://config-server:8888
                
 

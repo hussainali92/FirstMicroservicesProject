@@ -5,6 +5,15 @@ pipeline {
         jdk 'JDK17'
         maven 'myMaven'
     }
+    environment {
+
+            PROJECT_ID = 'my-kubernetes-project-501112'
+
+            CLUSTER_NAME = 'my-cluster'
+
+            CLUSTER_ZONE = 'us-central1-a'
+
+        }
 
     stages {
         stage('Checkout') {
@@ -182,6 +191,29 @@ pipeline {
                         --password-stdin
 
                         docker push imadmin1992/config-server:latest
+                    '''
+                }
+            }
+        }
+        stage('Deploy to GKE') {
+            steps {
+                withCredentials([
+                    file(
+                        credentialsId: 'gcp-sevice-account-key',
+                        variable: 'GCP_KEY'
+                    )
+                ]) {
+                    sh '''
+                        gcloud auth activate-service-account \
+                          --key-file="$GCP_KEY"
+
+                        gcloud config set project "$PROJECT_ID"
+
+                        gcloud container clusters get-credentials "$CLUSTER_NAME" \
+                          --zone "$CLUSTER_ZONE" \
+                          --project "$PROJECT_ID"
+
+                        kubectl apply -R -f k8s/
                     '''
                 }
             }

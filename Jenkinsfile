@@ -27,5 +27,24 @@ pipeline {
                 }
             }
         }
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        echo "$DOCKER_TOKEN" | docker login \
+                        --username "$DOCKER_USERNAME" \
+                        --password-stdin
+
+                        docker push hussain0792/currency-exchange:latest
+                    '''
+                }
+            }
+        }
     }
 }

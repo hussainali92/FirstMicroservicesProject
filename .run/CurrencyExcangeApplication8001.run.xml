@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CurrencyExcangeApplication8001" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="openjdk-20" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="com.in28minutes.microservices.currency_exchange_services.CurrencyExchangeServicesApplication" />
+    <module name="currency-exchange-services" />
+    <option name="VM_PARAMETERS" value="-Dserver.port=8001" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -11,5 +11,5 @@ spec:
       targetPort: 8100
   selector:
     app: currency-conversion
-  type: LoadBalancer
+  type: ClusterIP
 

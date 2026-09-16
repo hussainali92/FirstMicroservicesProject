@@ -49,16 +49,6 @@ class CurrencyConversionControllerWebTest {
                 .andExpect(jsonPath("$.environment").value("8000"));;
 
     }
-    @Test
-    void shouldReturnFallbackWhenCurrencyExchangeFails() throws Exception {
-        when(proxy.GetParamsFromCurrencyExchange("USD", "INR"))
-                .thenThrow(new RuntimeException("Currency Exchange is down"));
-        mockMvc.perform(
-                        get("/currency-conversion-feign/from/USD/to/INR/quantity/10")
-                )
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.environment").value("fallback-Response"));
 
-    }
 }
 

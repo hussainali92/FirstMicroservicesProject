@@ -22,10 +22,19 @@ pipeline {
             }
         }
 
-        stage('Build Currency Exchange') {
+        stage('Test Currency Exchange') {
             steps {
                 dir('currency-exchange-services') {
-                    sh 'mvn clean package -DskipTests'
+                    sh 'mvn clean verify'
+                }
+            }
+        }
+        stage('SonarQube Analysis - Currency Exchange') {
+            steps {
+                dir('currency-exchange-services') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=Currency-Exchange-Service'
+                    }
                 }
             }
         }

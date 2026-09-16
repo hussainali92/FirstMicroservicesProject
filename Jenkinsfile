@@ -25,7 +25,7 @@ pipeline {
         stage('Test Currency Exchange') {
             steps {
                 dir('currency-exchange-services') {
-                    sh 'mvn clean verify'
+                    sh 'mvn clean install'
                 }
             }
         }

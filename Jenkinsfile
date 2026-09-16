@@ -71,14 +71,29 @@ pipeline {
                 }
             }
         }
-        stage('Build Currency Conversion') {
+        stage('Test Currency Conversion') {
             steps {
                 dir('currency-conversion-services') {
-                    sh 'mvn clean package -DskipTests'
+                    sh 'mvn clean verify'
                 }
             }
         }
-
+        stage('SonarQube Analysis - Currency Conversion') {
+            steps {
+                dir('currency-conversion-services') {
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=Currency-Conversion-Service'
+                    }
+                }
+            }
+        }
+        stage('Quality Gate - Currency Conversion') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('Build Currency Conversion Image') {
             steps {
                 dir('currency-conversion-services') {
